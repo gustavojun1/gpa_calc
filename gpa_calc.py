@@ -1,6 +1,15 @@
+from pypdf import PdfReader 
+
+# verifica se a string do número
+# - é formado apenas por dígitos
+# - é maior ou igual a zero
+# - é menor ou igual a 10
 def isValidNumber(num_candidate):
     return num_candidate.replace('.','',1).isdigit() and float(num_candidate) >= 0 and float(num_candidate) <= 10
 
+# verifica se a string recebida
+# - possui dois números (nota e créditos)
+# - se a nota é válida
 def checkFormat(items):
     if len(items) == 2 and isValidNumber(items[1]):
         return True
@@ -20,21 +29,9 @@ def main():
             continue
         nota = float(items[0])
         creditos = int(items[1])
-        if nota < 5:
-            nota = 0
-        elif nota < 7:
-            nota = 1
-        elif nota < 8.5:
-            nota = 2
-        elif nota <= 10:
-            nota = 3
-        print(nota)
         sum_points = sum_points + nota * creditos
         sum_credits = sum_credits + creditos
-
-    print(sum_points)
-    print(sum_credits)
-    print(sum_points / sum_credits)
-
+    gpa = 0.4 * sum_points / sum_credits
+    print("GPA BR = " + str(gpa))
 if __name__ == "__main__":
     main()
